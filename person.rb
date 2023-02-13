@@ -9,7 +9,7 @@ class Person
   end
 
   def of_age?
-    age > 18 
+    age > 18
   end
 
   def can_use_services?
