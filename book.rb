@@ -1,5 +1,4 @@
 class Book
-
   attr_accessor :title, :author, :rental
 
   def initialize(title, author)
@@ -7,5 +6,4 @@ class Book
     @author = author
     @rental = []
   end
-
 end
