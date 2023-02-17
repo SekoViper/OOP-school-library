@@ -1,14 +1,14 @@
 class Main
   library = Rental.new
 
-  puts "What will you like to do? Choose an option."
-  puts "1. List all books"
-  puts "2. List all people"
-  puts "3. Create person"
-  puts "4. Create a book"
-  puts "5. Create a rental"
-  puts "6. List all rentals for a given person ID"
-  puts "0. Quit"
+  puts 'What will you like to do? Choose an option.'
+  puts '1. List all books'
+  puts '2. List all people'
+  puts '3. Create person'
+  puts '4. Create a book'
+  puts '5. Create a rental'
+  puts '6. List all rentals for a given person ID'
+  puts '0. Quit'
 
   choice = gets.chomp.to_i
 
@@ -20,10 +20,11 @@ class Main
   when 2
     library.list_people
   when 3
-    puts "What type of person do you want to create? Enter 1 for teacher or 2 student"
+    puts 'What type of person do you want to create? Enter 1 for teacher or 2 student'
     person_type = gets.chomp
-    if person_type == 1
-      puts "Enter Teachers Name"
+    case person_type
+    when 1
+      puts 'Enter Teachers Name'
       name = gets.chomp
       puts "Enter teacher's age"
       age = gets.chomp.to_i
@@ -32,7 +33,7 @@ class Main
       teacher = Teacher.new(age, name, specialization)
       library.add_person(teacher)
       puts "Teacher created with ID: #{teacher.id}"
-    elsif person_type == 2
+    when 2
       puts "Enter the student's name:"
       name = gets.chomp
       puts "Enter the student's age:"
@@ -42,8 +43,8 @@ class Main
       student = Student.new(name, age, grade)
       library.add_person(student)
       puts "Student created with ID #{student.id}"
-    else 
-      puts "Invalid person type"
+    else
+      puts 'Invalid person type'
     end
   when 4
     puts "Enter the book's title:"
@@ -58,10 +59,10 @@ class Main
     person_id = gets.chomp.to_i
     person = library.find_person(id)
     if person.nil?
-      puts "Person not found"
-      next 
+      puts 'Person not found'
+      next
     end
-    puts "Enter the rental date (yyyy-mm-dd):"
+    puts 'Enter the rental date (yyyy-mm-dd):'
     rental_date = gets.chomp
     rental = Rental.new(rental_date, book, person)
     library.aad_retal(rental)
@@ -72,14 +73,15 @@ class Main
     person = library.find_person(person_id)
 
     if person.nil?
-      puts "person not found"
+      puts 'person not found'
       next
     end
 
     rentals = library.find_person(person_id)
     puts "Rentals for #{person.name}:"
-    rentals.each do |rental|
-      puts "Book: #{rental.book.title}, Rental date: #{rental.date}"
+    rentals.each do |rental1|
+      puts "Book: #{rental1.book.title}, Rental date: #{rental1.date}"
     end
-  else puts "Invalid choice."
+  else puts 'Invalid choice.'
+  end
 end

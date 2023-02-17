@@ -104,7 +104,7 @@ class App
 
     puts 'Please enter a valid person ID' if list_rentals.nil?
 
-    list_rentals = @rentals.find { |rental1| rental1.person.id === person_id }
+    list_rentals = @rentals.find { |rental1| rental1.person.id == person_id }
 
     puts "Person with ID: #{person_id} have rented: "
     list_rentals.each { |rental| puts "#{rental.book.title} " }
