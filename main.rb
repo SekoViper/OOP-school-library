@@ -57,7 +57,7 @@ class Main
   when 5
     puts "Enter the person's ID:"
     person_id = gets.chomp.to_i
-    person = library.find_person(id)
+    person = library.find_person(person_id)
     if person.nil?
       puts 'Person not found'
       next
