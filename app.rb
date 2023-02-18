@@ -27,6 +27,32 @@ class App
     end
   end
 
+  def ask_student
+    print 'name: '
+    name = gets.chomp
+
+    print 'age: '
+    age = gets.chomp.to_i
+
+    print 'Permission: '
+    parent_permission = gets.chomp
+
+    @people << Student.new(name, age, parent_permission: parent_permission)
+  end
+
+  def ask_teacher
+    print 'name: '
+    name = gets.chomp
+
+    print 'age: '
+    age = gets.chomp.to_i
+
+    print 'specialization: '
+    specialization = gets.chomp
+
+    @people << Teacher.new(age, specialization, name, parent_permission: true)
+  end
+
   # create preson
   def create_person
     puts 'What kind of person do you want to create? (for student type 1 and for teacher type 2)'
@@ -34,29 +60,9 @@ class App
 
     case person_type
     when 1
-      print 'name: '
-      name = gets.chomp
-
-      print 'age: '
-      age = gets.chomp.to_i
-
-      print 'Permission: '
-      parent_permission = gets.chomp
-
-      @people << Student.new(name, age, parent_permission: parent_permission)
-
+      ask_student
     when 2
-      print 'name: '
-      name = gets.chomp
-
-      print 'age: '
-      age = gets.chomp.to_i
-
-      print 'specialiazation: '
-      specialization = gets.chomp
-
-      @people << Teacher.new(age, specialization, name, parent_permission: true)
-
+      ask_teacher
     else
       puts 'Invalid person'
       return
@@ -117,6 +123,6 @@ class App
       puts 'No rentals found'
       return
     end
-    list_rentals.each { |rental| puts "#{rental.book.title} " }
+    list_rentals.each { |rental| puts "Title: #{rental.book.title}, Book Author: #{rental.book.author}" }
   end
 end
