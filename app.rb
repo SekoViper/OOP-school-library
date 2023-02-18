@@ -14,16 +14,16 @@ class App
   end
 
   def list_books
-    puts 'List all books'
+    puts 'No books' if @books.empty?
     @books.each do |book|
       puts "ID: #{book.id} Title: #{book.title}, Author: #{book.author}"
     end
   end
 
   def list_people
-    puts 'List all people'
+    puts 'No Person' if @people.empty?
     @people.each do |person|
-      puts "ID: #{person.id}, #{person.name}"
+      puts "[#{person.class}]: ID: #{person.id}, Name: #{person.name}"
     end
   end
 
@@ -32,50 +32,57 @@ class App
     puts 'What kind of person do you want to create? (for student type 1 and for teacher type 2)'
     person_type = gets.chomp.to_i
 
-    puts "What is the person's name?"
-    name = gets.chomp
-
     case person_type
     when 1
-      puts "What's the student's grade level?"
-      grade_level = gets.chomp.to_i
+      print 'name: '
+      name = gets.chomp
 
-      person = Student.new(name, grade_level)
+      print 'age: '
+      age = gets.chomp.to_i
+
+      print 'Permission: '
+      parent_permission = gets.chomp
+
+      @people << Student.new(name, age, parent_permission: parent_permission)
 
     when 2
-      puts "what's the teacher's specialization?"
+      print 'name: '
+      name = gets.chomp
+
+      print 'age: '
+      age = gets.chomp.to_i
+
+      print 'specialiazation: '
       specialization = gets.chomp
 
-      person = Teacher.new(name, specialization)
+      @people << Teacher.new(age, specialization, name, parent_permission: true)
 
     else
       puts 'Invalid person'
       return
     end
 
-    @people << person
-    puts "Created person with #{person.id}"
+    puts 'Person created successfully'
   end
 
   def create_book
-    puts 'What is the book title?'
-    book_title = gets.chomp
+    print 'Title: '
+    title = gets.chomp
 
-    puts 'who is the author of the book?'
-    book_author = gets.chomp
+    print 'Author: '
+    author = gets.chomp
 
-    book = Book.new(book_title, book_author)
+    @books << Book.new(title, author)
 
-    @books << book
-    puts "Created book with ID: #{book.id}"
+    puts 'Book created successfully'
   end
 
   def create_rental
-    puts 'What is the ID of the person who is renting the book'
+    puts 'Person ID: '
     person_id = gets.chomp.to_i
     person = @people.find { |person1| person1.id == person_id }
 
-    if person.nil
+    if person.nil?
       puts "Could not find person with ID: #{person_id}"
       return
     end
@@ -84,7 +91,7 @@ class App
     book_id = gets.chomp.to_i
     book = @books.find { |book1| book1.id == book_id }
 
-    if book.nil
+    if book.nil?
       puts "Could not find book with ID: #{book_id}"
       return
     end
@@ -102,11 +109,14 @@ class App
     puts 'What is the ID of the person?'
     person_id = gets.chomp.to_i
 
-    puts 'Please enter a valid person ID' if list_rentals.nil?
+    puts 'Please enter a valid person ID' if person_id.nil?
 
-    list_rentals = @rentals.find { |rental1| rental1.person.id == person_id }
+    list_rentals = @rentals.select { |rental1| rental1.person.id == person_id }
 
-    puts "Person with ID: #{person_id} have rented: "
+    if list_rentals.empty?
+      puts 'No rentals found'
+      return
+    end
     list_rentals.each { |rental| puts "#{rental.book.title} " }
   end
 end
