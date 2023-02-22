@@ -19,3 +19,27 @@ def write_data(filename, array)
     puts 'Error!'
   end
 end
+
+def write_books(array)
+  base = "#{Dir.pwd}/saved_data"
+  empty_array = []
+  array.each { |e| empty_array.push({ title: e.title, author: e.author }) }
+  File.write("#{base}/books.json", empty_array.to_json, mode: 'w')
+end
+def write_rentals(array)
+  base = "#{Dir.pwd}/saved_data"
+  empty_array = []
+  array.each { |e| empty_array.push({ date: e.date, book: e.book.title, person: e.person.id }) }
+  File.write("#{base}/rentals.json", empty_array.to_json, mode: 'w')
+end
+def write_people(array)
+  base = "#{Dir.pwd}/saved_data"
+  empty_array = []
+  array.each do |e|
+    empty_array.push({ person: e.class, name: e.name, specialization: (if e.class.to_s == 'Teacher'
+                                                                         e.specialization
+                                                                       end), id: e.id, age: e.age })
+  end
+  File.write("#{base}/people.json", empty_array.to_json, mode: 'w')
+end
+
