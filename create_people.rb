@@ -2,7 +2,6 @@ require_relative 'student'
 require_relative 'teacher'
 
 module CreatePeople
-
   @people = []
 
   def self.people
