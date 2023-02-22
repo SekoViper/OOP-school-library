@@ -1,15 +1,19 @@
 require_relative 'book'
 
-class CreateBook
-  attr_reader :books
+module CreateBook
+  class << self
+    attr_accessor :books
+  end
 
-  def initialize
-    @books = []
+  @books = []
+
+  def self.people
+    @books
   end
 
   def list_books
-    puts 'No books' if @books.empty?
-    @books.each do |book|
+    puts 'No books' if CreateBook.books.empty?
+    CreateBook.books.each do |book|
       puts "ID: #{book.id} Title: #{book.title}, Author: #{book.author}"
     end
   end
@@ -21,12 +25,8 @@ class CreateBook
     print 'Author: '
     author = gets.chomp
 
-    return unless @books << Book.new(title, author)
+    return unless CreateBook.books << Book.new(title, author)
 
     puts 'Book created successfully'
-  end
-
-  class << self
-    attr_reader :books
   end
 end
