@@ -1,17 +1,18 @@
 require_relative 'student'
 require_relative 'teacher'
 
-class CreatePeople
-  attr_accessor :people
+module CreatePeople
 
-  def initialize
-    @people = []
+  @people = []
+
+  def self.people
+    @people
   end
 
   # list people
   def list_people
-    puts 'No Person' if @people.empty?
-    @people.each do |person|
+    puts 'No Person' if CreatePeople.people.empty?
+    CreatePeople.people.each do |person|
       puts "[#{person.class}]: ID: #{person.id}, Name: #{person.name}"
     end
   end
@@ -27,7 +28,7 @@ class CreatePeople
     print 'Permission: '
     parent_permission = gets.chomp
 
-    @people << Student.new(name, age, parent_permission: parent_permission)
+    CreatePeople.people << Student.new(name, age, parent_permission: parent_permission)
   end
 
   # ask teacher info
@@ -41,7 +42,7 @@ class CreatePeople
     print 'specialization: '
     specialization = gets.chomp
 
-    @people << Teacher.new(age, specialization, name, parent_permission: true)
+    CreatePeople.people << Teacher.new(age, specialization, name, parent_permission: true)
   end
 
   # create person
@@ -60,9 +61,5 @@ class CreatePeople
     end
 
     puts 'Person created successfully'
-  end
-
-  class << self
-    attr_reader :people
   end
 end
