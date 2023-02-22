@@ -8,7 +8,7 @@ module CreatePeople
     @people
   end
 
-  # list people
+  # list all people
   def list_people
     puts 'No Person' if CreatePeople.people.empty?
     CreatePeople.people.each do |person|
