@@ -1,5 +1,6 @@
 require './app'
 require_relative 'display_options'
+require_relative 'preserve_data'
 
 def main
   app = App.new
@@ -12,6 +13,9 @@ def main
     puts 'Invalid choice, please select a number from [1..7]' if input < 1 || input > 7
     app.process_input(input, app)
   end
+  write_data('books', app.books)
+  write_data('people', app.people)
+  write_data('rentals', app.rentals)
 end
 
 main
