@@ -26,14 +26,25 @@ def write_books(array)
   array.each { |e| empty_array.push({ id: e.id, title: e.title, author: e.author }) }
   File.write("#{base}/books.json", empty_array.to_json, mode: 'w')
 end
+
 def write_rentals(array)
   base = "#{Dir.pwd}/saved_data"
   empty_array = []
-  array.each { |e| empty_array.push({ date: e.date, title: e.book.title, author: e.book.author, person: e.person.class, name: e.person.name, specialization: (if e.person.class.to_s == 'Teacher'
-    e.person.specialization
-  end), age: e.person.age, parent: e.person.parent_permission }) }
+  array.each do |e|
+    empty_array.push({
+                       date: e.date,
+                       title: e.book.title,
+                       author: e.book.author,
+                       person: e.person.class,
+                       name: e.person.name,
+                       specialization: (if e.person.class.to_s == 'Teacher'
+                                          e.person.specialization
+                                        end), age: e.person.age, parent: e.person.parent_permission
+                     })
+  end
   File.write("#{base}/rentals.json", empty_array.to_json, mode: 'w')
 end
+
 def write_people(array)
   base = "#{Dir.pwd}/saved_data"
   empty_array = []
@@ -44,4 +55,3 @@ def write_people(array)
   end
   File.write("#{base}/people.json", empty_array.to_json, mode: 'w')
 end
-

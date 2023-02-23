@@ -3,7 +3,6 @@ require_relative 'create_people'
 require_relative 'rental_inputs'
 
 class App
-
   attr_accessor :book, :person, :rentals
 
   include CreateBook

@@ -11,13 +11,16 @@ module CreatePeople
   def self.load_people
     base = "#{Dir.pwd}/saved_data"
     people_reader = File.read("#{base}/people.json")
+    return if people_reader == ''
+
     @people = JSON.parse(people_reader).map do |data|
-      if data['person'] == 'Student'
+      case data['person']
+      when 'Student'
         Student.new(data['name'], data['age'], parent_permission: data['parent_permission'])
-      elsif data['person'] == 'Teacher'
+      when 'Teacher'
         Teacher.new(data['name'], data['age'], data['specialization'], parent_permission: data['parent_permission'])
       end
-    end unless people_reader == ''
+    end
   end
 
   # list all people
