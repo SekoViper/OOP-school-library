@@ -8,6 +8,18 @@ module CreatePeople
     @people
   end
 
+  def self.load_people
+    base = "#{Dir.pwd}/saved_data"
+    people_reader = File.read("#{base}/people.json")
+    @people = JSON.parse(people_reader).map do |data|
+      if data['person'] == 'Student'
+        Student.new(data['name'], data['age'], parent_permission: data['parent_permission'])
+      elsif data['person'] == 'Teacher'
+        Teacher.new(data['name'], data['age'], data['specialization'], parent_permission: data['parent_permission'])
+      end
+    end unless people_reader == ''
+  end
+
   # list all people
   def list_people
     puts 'No Person' if CreatePeople.people.empty?
@@ -41,7 +53,7 @@ module CreatePeople
     print 'specialization: '
     specialization = gets.chomp
 
-    CreatePeople.people << Teacher.new(age, specialization, name, parent_permission: true)
+    CreatePeople.people << Teacher.new(name, age, specialization, parent_permission: true)
   end
 
   # create person
