@@ -7,23 +7,19 @@ module CreatePeople
     attr_accessor :people
   end
 
-  def self.people
-    @people
-  end
-
   def self.load_people
     base = "#{Dir.pwd}/saved_data"
     people_reader = File.read("#{base}/people.json")
-    unless people_reader == ''
-      CreatePeople.people = JSON.parse(people_reader).map do |data|
-        case data['person']
-        when 'Student'
-          Student.new(data['name'], data['age'], parent_permission: data['parent_permission'])
-        when 'Teacher'
-          Teacher.new(data['name'], data['age'], data['specialization'], parent_permission: data['parent_permission'])
-        end
+    return if people_reader == ''
+
+    CreatePeople.people = JSON.parse(people_reader).map do |data|
+      case data['person']
+      when 'Student'
+        Student.new(data['name'], data['age'], parent_permission: data['parent_permission'])
+      when 'Teacher'
+        Teacher.new(data['name'], data['age'], data['specialization'], parent_permission: data['parent_permission'])
       end
-    end  
+    end
   end
 
   # list all people

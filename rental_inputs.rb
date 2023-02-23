@@ -21,17 +21,17 @@ module RentalInput
   def self.load_rentals
     base = "#{Dir.pwd}/saved_data"
     rental_reader = File.read("#{base}/rentals.json")
-    unless rental_reader == ''
-      RentalInput.rentals = JSON.parse(rental_reader).map do |data|
-        book = Book.new(data['title'], data['author'])
-        if data['person'] == 'Student'
-          person = Student.new(data['name'], data['age'],
-                              parent_permission: data['parent'])
-        end
-        person = Teacher.new(data['name'], data['age'], data['specialization']) if data['person'] == 'Teacher'
+    return if rental_reader == ''
 
-        Rental.new(data['date'], book, person)
+    RentalInput.rentals = JSON.parse(rental_reader).map do |data|
+      book = Book.new(data['title'], data['author'])
+      if data['person'] == 'Student'
+        person = Student.new(data['name'], data['age'],
+                             parent_permission: data['parent'])
       end
+      person = Teacher.new(data['name'], data['age'], data['specialization']) if data['person'] == 'Teacher'
+
+      Rental.new(data['date'], book, person)
     end
   end
 
