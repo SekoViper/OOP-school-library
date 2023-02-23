@@ -101,9 +101,7 @@ To run the project, execute the following command:
 
 👤 **Author - 2**
 
-- GitHub: [@keebot-png](https://github.com/keebot-png)
-- Twitter: [@KeenanBotes](https://twitter.com/KeenanBotes)
-- LinkedIn: [kee.bot@icloud.com](https://www.linkedin.com/in/keenan-botes-947043160)
+- GitHub: [@umair-rao](https://github.com/umair-rao)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -3,8 +3,11 @@ require_relative 'create_people'
 require_relative 'rental_inputs'
 
 class App
+  attr_accessor :book, :person, :rentals
+
   include CreateBook
   include CreatePeople
+  include RentalInput
 
   def initialize
     @rentals = []
@@ -14,7 +17,8 @@ class App
     @person = Object.new
     @person.extend CreatePeople
 
-    @rental = RentalInput.new
+    @rental = Object.new
+    @rental.extend RentalInput
   end
 
   def process_input(input, app)

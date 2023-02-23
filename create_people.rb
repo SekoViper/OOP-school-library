@@ -3,14 +3,29 @@ require_relative 'teacher'
 
 module CreatePeople
   @people = []
+  class << self
+    attr_accessor :people
+  end
 
-  def self.people
-    @people
+  def self.load_people
+    base = "#{Dir.pwd}/saved_data"
+    people_reader = File.read("#{base}/people.json")
+    return if people_reader == ''
+
+    CreatePeople.people = JSON.parse(people_reader).map do |data|
+      case data['person']
+      when 'Student'
+        Student.new(data['name'], data['age'], parent_permission: data['parent_permission'])
+      when 'Teacher'
+        Teacher.new(data['name'], data['age'], data['specialization'], parent_permission: data['parent_permission'])
+      end
+    end
   end
 
   # list all people
   def list_people
     puts 'No Person' if CreatePeople.people.empty?
+    puts 'List of People'
     CreatePeople.people.each do |person|
       puts "[#{person.class}]: ID: #{person.id}, Name: #{person.name}"
     end
@@ -41,7 +56,7 @@ module CreatePeople
     print 'specialization: '
     specialization = gets.chomp
 
-    CreatePeople.people << Teacher.new(age, specialization, name, parent_permission: true)
+    CreatePeople.people << Teacher.new(name, age, specialization, parent_permission: true)
   end
 
   # create person
