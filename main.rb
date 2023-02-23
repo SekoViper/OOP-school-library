@@ -13,7 +13,9 @@ class Main
   app = App.new
   puts ['Welcome to School Library App!', '']
   CreateBook.load_books
+  app.list_books
   CreatePeople.load_people
+  app.list_people
   RentalInput.load_rentals
 
   input = nil
@@ -27,7 +29,7 @@ class Main
 
   write_data('books', CreateBook.books)
   write_data('people', CreatePeople.people)
-  write_data('rentals', RentalInput.rental)
+  write_data('rentals', RentalInput.rentals)
 end
 
 main = Main.new
