@@ -10,6 +10,9 @@ module RentalInput
   include CreatePeople
   include CreateBook
   @rentals = []
+  class << self
+    attr_accessor :rentals
+  end
 
   def self.rental
     @rentals
@@ -18,17 +21,17 @@ module RentalInput
   def self.load_rentals
     base = "#{Dir.pwd}/saved_data"
     rental_reader = File.read("#{base}/rentals.json")
-    return if rental_reader == ''
+    unless rental_reader == ''
+      RentalInput.rentals = JSON.parse(rental_reader).map do |data|
+        book = Book.new(data['title'], data['author'])
+        if data['person'] == 'Student'
+          person = Student.new(data['name'], data['age'],
+                              parent_permission: data['parent'])
+        end
+        person = Teacher.new(data['name'], data['age'], data['specialization']) if data['person'] == 'Teacher'
 
-    @rentals = JSON.parse(rental_reader).map do |data|
-      book = Book.new(data['title'], data['author'])
-      if data['person'] == 'Student'
-        person = Student.new(data['name'], data['age'],
-                             parent_permission: data['parent'])
+        Rental.new(data['date'], book, person)
       end
-      person = Teacher.new(data['name'], data['age'], data['specialization']) if data['person'] == 'Teacher'
-
-      Rental.new(data['date'], book, person)
     end
   end
 
