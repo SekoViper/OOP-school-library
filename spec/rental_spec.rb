@@ -6,9 +6,7 @@ require_relative '../book'
 describe Rental do
   before :each do
     person = Student.new('Seko', 32)
-    # person = { 'name' => 'Seko', 'age' => 32, 'rental' => [] }
     book = Book.new('Narnia', 'Bob')
-    # book = { 'title' => 'Narnia', 'author' => 'Bob', 'rental' => [] }
     @rental = Rental.new('2023-02-09', book, person)
   end
 
