@@ -18,6 +18,7 @@ module CreateBook
     end
   end
 
+  # List books
   def list_books
     puts 'No books' if CreateBook.books.empty?
     puts 'All Books'

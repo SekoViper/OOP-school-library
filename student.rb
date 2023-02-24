@@ -4,7 +4,7 @@ class Student < Person
   attr_accessor :age, :name, :classroom
 
   def initialize(name, age, parent_permission: true)
-    super(age, name, parent_permission: parent_permission)
+    super(name, age, parent_permission: parent_permission)
   end
 
   def play_hooky
