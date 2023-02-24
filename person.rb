@@ -6,7 +6,7 @@ class Person < Nameable
   attr_accessor :name, :age, :parent_permission, :rental
   attr_reader :id
 
-  def initialize(age, name, parent_permission: true)
+  def initialize(name, age, parent_permission: true)
     super(name)
     @id = Random.rand(1..1000)
     @name = name
