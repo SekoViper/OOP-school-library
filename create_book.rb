@@ -17,7 +17,7 @@ module CreateBook
       CreateBook.books.push(Book.new(x['title'], x['author']))
     end
   end
-
+# List books
   def list_books
     puts 'No books' if CreateBook.books.empty?
     puts 'All Books'
