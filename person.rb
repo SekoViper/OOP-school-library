@@ -16,7 +16,7 @@ class Person < Nameable
   end
 
   def of_age?
-    age >= 18
+    @age.to_i >= 18
   end
 
   def can_use_services?
